@@ -17,12 +17,13 @@
 package org.bcsphere.bluetooth;
 
 import org.apache.cordova.CallbackContext;
+import org.apache.cordova.CordovaInterface;
 import org.json.JSONArray;
 
 import android.content.Context;
 
 public interface IBluetooth {
-	void setContext(Context context);
+	void setContext(Context context, CordovaInterface cordova);
 	void startScan(JSONArray json,CallbackContext callbackContext);
 	void stopScan(JSONArray json,CallbackContext callbackContext);
 	void connect(JSONArray json,CallbackContext callbackContext) ;
