@@ -118,7 +118,7 @@ public class BluetoothG43plus implements IBluetooth{
 		wakeLockHandler.removeCallbacks(wakeLockRelease);
 		try {
 			wl.acquire();
-		}catch(e){
+		} catch (Exception e){
 			Log.i(TAG, "wake lock acquire error");
 		}
 		
@@ -170,6 +170,19 @@ public class BluetoothG43plus implements IBluetooth{
 
 	@Override
 	public void connect(JSONArray json, CallbackContext callbackContext) {
+		
+		
+		
+		// ++
+		wakeLockHandler.removeCallbacks(wakeLockRelease);
+		try {
+			wl.acquire();
+		} catch (Exception e){
+			Log.i(TAG, "wake lock acquire error");
+		}
+		
+		
+		
 		Log.i(TAG, "connect");
 		String deviceAddress = Tools.getData(json, Tools.DEVICE_ADDRESS);
 		if (connectedDevice.get(deviceAddress) != null) {
@@ -191,6 +204,12 @@ public class BluetoothG43plus implements IBluetooth{
 		}
 		disconnectCC.put(deviceAddress, callbackContext);
 		mBluetoothGatts.get(deviceAddress).disconnect();
+		
+		
+		
+		// ++
+		// убрать wake lock через 5 минут
+		wakeLockHandler.postDelayed(wakeLockRelease, 300000);
 	}
 
 	@Override
