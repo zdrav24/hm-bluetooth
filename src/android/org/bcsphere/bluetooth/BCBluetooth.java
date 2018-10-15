@@ -43,6 +43,14 @@ import org.bcsphere.bluetooth.tools.Tools;
 public class BCBluetooth extends CordovaPlugin {
 
 	public Context myContext = null;
+	
+	
+	
+	// ++
+	public CordovaInterface cordovaInterface = null;
+	
+	
+	
 	private SharedPreferences sp;
 	private boolean isSetContext = true;
 	private IBluetooth bluetoothAPI = null;
@@ -66,6 +74,14 @@ public class BCBluetooth extends CordovaPlugin {
 
 		super.initialize(cordova, webView);
 		myContext = this.webView.getContext();
+		
+		
+		
+		// ++
+		cordovaInterface = cordova;
+		
+		
+		
 		IntentFilter intentFilter = new IntentFilter();
 		intentFilter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
 		intentFilter.addAction(BluetoothDevice.ACTION_FOUND);
@@ -99,7 +115,7 @@ public class BCBluetooth extends CordovaPlugin {
 		try {
 			if(bluetoothAPI != null){
 				if (isSetContext) {
-					bluetoothAPI.setContext(myContext);
+					bluetoothAPI.setContext(myContext, cordovaInterface);
 					isSetContext = false;
 				}
 				if (action.equals("getCharacteristics")) {
