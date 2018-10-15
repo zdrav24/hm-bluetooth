@@ -77,8 +77,8 @@ public class BluetoothG43plus implements IBluetooth{
 	
 	// ++
 	// wake lock при начале сканирования и после
-	private PowerManager pm = (PowerManager) CordovaPlugin.cordova.getActivity().getSystemService(Context.POWER_SERVICE);
-	private PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG);
+	private PowerManager pm = null;
+	private PowerManager.WakeLock wl = null;
 	private boolean wakeLockAquired = false;
 	private final Runnable wakeLockRelease = new Runnable(){
 		public void run(){
@@ -95,6 +95,9 @@ public class BluetoothG43plus implements IBluetooth{
 	public void setContext(Context context) {
 		Log.i(TAG, "setContext");
 		this.mContext = context;
+		this.pm	=	(PowerManager) context.getSystemService(Context.POWER_SERVICE);
+		this.wl	=	pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG);
+		
 		mBluetoothManager = (BluetoothManager) context.getSystemService(Context.BLUETOOTH_SERVICE);
 		mBluetoothAdapter = mBluetoothManager.getAdapter();
 	}
