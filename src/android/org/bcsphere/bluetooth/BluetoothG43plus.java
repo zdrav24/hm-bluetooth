@@ -71,6 +71,22 @@ public class BluetoothG43plus implements IBluetooth{
 	private HashMap<String, BluetoothGatt> mBluetoothGatts = new HashMap<String, BluetoothGatt>();
 	private HashMap<String, List<BluetoothGattService>> deviceServices = new HashMap<String, List<BluetoothGattService>>();
 	
+	// ++
+	// wake lock при начале сканирования и после
+	private PowerManager pm = (PowerManager)mContext.getSystemService(Context.POWER_SERVICE);
+	private PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK | PowerManager.ON_AFTER_RELEASE, TAG);
+	private wakeLockAquired = false;
+	private Runnable wakeLockRelease = new Runnable(){
+		public void run(){
+			Log.i(TAG, "wakeLockRelease");
+			wl.release();
+			wakeLockAquired = false;
+		}
+	};
+	private Handler wakeLockHandler = new android.os.Handler();
+	
+	
+	
 	@Override
 	public void setContext(Context context) {
 		Log.i(TAG, "setContext");
@@ -81,6 +97,15 @@ public class BluetoothG43plus implements IBluetooth{
 
 	@Override
 	public void startScan(JSONArray json, CallbackContext callbackContext) {
+		// ++
+		wakeLockHandler.removeCallbacks(wakeLockRelease);
+		if (wakeLockAquired == false){
+			wl.aquire();
+			wakeLockAquired = true;
+		}
+		
+		
+		
 		Log.i(TAG, "startScan");
 		if (isScanning) {
 			Tools.sendSuccessMsg(callbackContext);
@@ -117,6 +142,12 @@ public class BluetoothG43plus implements IBluetooth{
 		}else {
 			Tools.sendSuccessMsg(callbackContext);
 		}
+		
+		
+		
+		// ++
+		// убрать wake lock через 5 минут
+		wakeLockHandler.postDelayed(wakeLockRelease, 300000);
 	}
 
 	@Override
