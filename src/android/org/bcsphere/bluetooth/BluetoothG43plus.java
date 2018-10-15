@@ -77,7 +77,7 @@ public class BluetoothG43plus implements IBluetooth{
 	// ++
 	// wake lock при начале сканирования и после
 	private PowerManager pm = (PowerManager)mContext.getSystemService(Context.POWER_SERVICE);
-	private PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK | PowerManager.ON_AFTER_RELEASE, TAG);
+	private PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG);
 	private boolean wakeLockAquired = false;
 	private Runnable wakeLockRelease = new Runnable(){
 		public void run(){
@@ -103,7 +103,7 @@ public class BluetoothG43plus implements IBluetooth{
 		// ++
 		wakeLockHandler.removeCallbacks(wakeLockRelease);
 		if (wakeLockAquired == false){
-			wl.aquire();
+			wl.acquire();
 			wakeLockAquired = true;
 		}
 		
