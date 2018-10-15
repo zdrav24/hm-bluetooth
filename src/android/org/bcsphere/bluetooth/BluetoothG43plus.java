@@ -21,9 +21,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
-import org.apache.cordova;
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.PluginResult;
+import org.apache.cordova.CordovaPlugin;
 import org.bcsphere.bluetooth.tools.Tools;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -77,7 +77,7 @@ public class BluetoothG43plus implements IBluetooth{
 	
 	// ++
 	// wake lock при начале сканирования и после
-	private PowerManager pm = (PowerManager) cordova.getActivity().getSystemService(Context.POWER_SERVICE);
+	private PowerManager pm = (PowerManager) CordovaPlugin.cordova.getActivity().getSystemService(Context.POWER_SERVICE);
 	private PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG);
 	private boolean wakeLockAquired = false;
 	private final Runnable wakeLockRelease = new Runnable(){
