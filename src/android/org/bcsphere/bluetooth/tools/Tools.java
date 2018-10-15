@@ -735,11 +735,7 @@ public class Tools {
 		JSONArray solicitedServiceUUIDs = new JSONArray();
 		JSONArray overflowServiceUUIDs = new JSONArray();
 		boolean isOver = true;
-		while (isOver) {
-			if (!(advData.length >= 1)) {
-				isOver = false;
-				break;
-			}
+		while (isOver && !(advData.length >= 1)) {
 			
 			int dataLen = advData[0];
 			if (dataLen == 0) {
