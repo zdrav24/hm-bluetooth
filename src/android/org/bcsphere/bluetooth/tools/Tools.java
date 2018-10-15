@@ -736,6 +736,11 @@ public class Tools {
 		JSONArray overflowServiceUUIDs = new JSONArray();
 		boolean isOver = true;
 		while (isOver) {
+			if (advData.length == 0) {
+				isOver = false;
+				break;
+			}
+			
 			int dataLen = advData[0];
 			if (dataLen == 0) {
 				isOver = false;
