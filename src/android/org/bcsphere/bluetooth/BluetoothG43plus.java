@@ -101,7 +101,7 @@ public class BluetoothG43plus implements IBluetooth{
 		// ++
 		this.mContext = context;
 		this.pm	=	(PowerManager) cordova.getActivity().getSystemService(Context.POWER_SERVICE);
-		this.wl	=	pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG);
+		this.wl	=	pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, 'scanWakeLock');
 		
 		
 		
