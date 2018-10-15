@@ -116,9 +116,10 @@ public class BluetoothG43plus implements IBluetooth{
 		
 		// ++
 		wakeLockHandler.removeCallbacks(wakeLockRelease);
-		if (wakeLockAquired == false){
+		try {
 			wl.acquire();
-			wakeLockAquired = true;
+		}catch(e){
+			Log.i(TAG, "wake lock acquire error");
 		}
 		
 		
