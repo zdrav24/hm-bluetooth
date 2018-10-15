@@ -24,6 +24,7 @@ import java.util.UUID;
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.PluginResult;
 import org.apache.cordova.CordovaPlugin;
+import org.apache.cordova.CordovaInterface;
 import org.bcsphere.bluetooth.tools.Tools;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -92,11 +93,17 @@ public class BluetoothG43plus implements IBluetooth{
 	
 	
 	@Override
-	public void setContext(Context context) {
+	public void setContext(Context context, CordovaInterface cordova) {
 		Log.i(TAG, "setContext");
+		
+		
+		
+		// ++
 		this.mContext = context;
-		this.pm	=	(PowerManager) context.getSystemService(Context.POWER_SERVICE);
+		this.pm	=	(PowerManager) cordova.getActivity().getSystemService(Context.POWER_SERVICE);
 		this.wl	=	pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG);
+		
+		
 		
 		mBluetoothManager = (BluetoothManager) context.getSystemService(Context.BLUETOOTH_SERVICE);
 		mBluetoothAdapter = mBluetoothManager.getAdapter();
@@ -104,6 +111,9 @@ public class BluetoothG43plus implements IBluetooth{
 
 	@Override
 	public void startScan(JSONArray json, CallbackContext callbackContext) {
+		
+		
+		
 		// ++
 		wakeLockHandler.removeCallbacks(wakeLockRelease);
 		if (wakeLockAquired == false){
