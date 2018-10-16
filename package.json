@@ -1,20 +1,11 @@
 {
   "name": "com.hm.bluetooth",
-  "description": "Cordova bluetooth plugin",
-  "version": "1.1816001",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/lostrepo/testbt.git"
-  },
-  "bugs": {
-    "url": "https://github.com/lostrepo/testbt/issues"
-  },
-  "cordova": {
-    "id": "com.hm.bluetooth",
-    "platforms": [
-      "ios",
-      "android"
-    ]
-  },
-  "author": "Various"
+  "description": "Cordova BLE plugin",
+  "version": "1.0.0",
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=3.0.0"
+    }
+  ]
 }
