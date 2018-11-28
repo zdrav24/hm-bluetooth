@@ -86,7 +86,8 @@ public class BCBluetooth extends CordovaPlugin {
 		intentFilter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
 		intentFilter.addAction(BluetoothDevice.ACTION_FOUND);
 		myContext.registerReceiver(receiver, intentFilter);
-		sp = myContext.getSharedPreferences("VERSION_OF_API", 1);
+		// [+] замена FILE_MODE с 1 - общий для чтения (удалено в SDK 24) на 0 - для одного пакета или user id
+		sp = myContext.getSharedPreferences("VERSION_OF_API", 0);
 		BluetoothDetection.detectionBluetoothAPI(myContext);
 		try {
 			if ((versionOfAPI = sp.getString("API", "no_google"))
