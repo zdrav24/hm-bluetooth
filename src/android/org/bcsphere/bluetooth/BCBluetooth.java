@@ -86,23 +86,24 @@ public class BCBluetooth extends CordovaPlugin {
 		intentFilter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
 		intentFilter.addAction(BluetoothDevice.ACTION_FOUND);
 		myContext.registerReceiver(receiver, intentFilter);
-		sp = myContext.getSharedPreferences("VERSION_OF_API", 1);
+		//sp = myContext.getSharedPreferences("VERSION_OF_API", 1);
 		BluetoothDetection.detectionBluetoothAPI(myContext);
 		try {
-			if ((versionOfAPI = sp.getString("API", "no_google"))
-					.equals("google")) {
+			// [-] comment failing, unused code
+			//if ((versionOfAPI = sp.getString("API", "no_google"))
+			//		.equals("google")) {
 				bluetoothAPI = (IBluetooth) Class.forName(
 						"org.bcsphere.bluetooth.BluetoothG43plus")
 						.newInstance();
-			} else if ((versionOfAPI = sp.getString("API", "no_samsung"))
-					.equals("samsung")) {
-				bluetoothAPI = (IBluetooth) Class.forName(
-						"org.bcsphere.bluetooth.BluetoothSam42").newInstance();
-			} else if ((versionOfAPI = sp.getString("API", "no_htc"))
-					.equals("htc")) {
-				bluetoothAPI = (IBluetooth) Class.forName(
-						"org.bcsphere.bluetooth.BluetoothHTC41").newInstance();
-			}
+			//} else if ((versionOfAPI = sp.getString("API", "no_samsung"))
+			//		.equals("samsung")) {
+			//	bluetoothAPI = (IBluetooth) Class.forName(
+			//			"org.bcsphere.bluetooth.BluetoothSam42").newInstance();
+			//} else if ((versionOfAPI = sp.getString("API", "no_htc"))
+			//		.equals("htc")) {
+			//	bluetoothAPI = (IBluetooth) Class.forName(
+			//			"org.bcsphere.bluetooth.BluetoothHTC41").newInstance();
+			//}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
