@@ -28,7 +28,8 @@ public class BluetoothDetection {
 	private static Editor editor;
 	public static final void detectionBluetoothAPI(final Context context)
 	{
-		 sp  = context.getSharedPreferences("VERSION_OF_API", 1);
+		// [+] замена FILE_MODE с 1 - общий для чтения (удалено в SDK 24) на 0 - для одного пакета или user id
+		 sp  = context.getSharedPreferences("VERSION_OF_API", 0);
 		 editor = sp.edit();
 		if (Tools.isSupportUniversalAPI()) {
 			editor.putString("API", "google").commit();
